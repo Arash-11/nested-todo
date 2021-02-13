@@ -1,24 +1,20 @@
+// this will hold all the tasks as objects
 const tasks = [];
 
 const body = document.getElementById('body');
 const input = document.getElementById('input');
 const button = document.querySelector('.add-task-btn');
 
+// this is used to track and generate IDs
 let idTracker = 1;
-
-let firstRootTask;
 
 
 function addTask (inputValue) {
   tasks.push({
     id: idTracker,
-    parent: inputValue,
+    taskName: inputValue,
     children: []
   });
-  if (idTracker > 1) {
-    firstRootTask = document.getElementById(tasks[0].id);
-    firstRootTask.parentElement.id = 'root-container';
-  }
   displayTask(body, idTracker, inputValue);
   idTracker++;
 }
@@ -29,13 +25,9 @@ function addSubTask (arr, parentElement, parentId, inputValue) {
     if (task.id === +parentId) {
       task.children.push({
         id: idTracker,
-        parent: inputValue,
+        taskName: inputValue,
         children: []
       });
-      if (idTracker > 1) {
-        firstRootTask = document.getElementById(tasks[0].id);
-        firstRootTask.parentElement.id = 'root-container';
-      }
       displayTask(parentElement, idTracker, inputValue);
       idTracker++;
       return;
